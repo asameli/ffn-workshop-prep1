@@ -71,13 +71,13 @@ resource "azurerm_subnet" "ffn-workshop" {
   resource_group_name  = azurerm_resource_group.ffn-workshop.name
   virtual_network_name = azurerm_virtual_network.ffn-workshop.name
   address_prefixes     = ["10.0.0.0/24"]
+  network_security_group_id = azurerm_network_security_group.ffn-workshop.id
 }
 
 resource "azurerm_network_interface" "ffn-workshop" {
   name                      = "${var.prefix}-nic"
   location                  = azurerm_resource_group.ffn-workshop.location
   resource_group_name       = azurerm_resource_group.ffn-workshop.name
-  network_security_group_id = azurerm_network_security_group.ffn-workshop.id
 
   ip_configuration {
     name                          = "${var.prefix}-ip-config"

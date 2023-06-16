@@ -25,10 +25,11 @@ resource "azurerm_subnet" "my_terraform_subnet" {
 
 # Create public IPs
 resource "azurerm_public_ip" "my_terraform_public_ip" {
-  name                = "${var.prefix}-pip"
+  name                = "${var.prefix}-ubuntu-pip"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
+  sku                 = "Standard"
 }
 
 # Create Network Security Group and rule

@@ -1,7 +1,7 @@
 # Workshop preparation
 To deploy the Terraform script with authentication, you can use the Azure CLI to authenticate with Azure before running Terraform commands. Here's how you can do it:
 
-1. Install the Azure CLI by following the instructions provided by Microsoft: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+1. Install the Azure CLI by following the instructions provided by Microsoft: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 
 2. Open a command prompt or terminal and sign in to Azure using the Azure CLI:
 

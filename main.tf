@@ -71,7 +71,7 @@ resource "azurerm_subnet" "ffn-workshop" {
   resource_group_name  = azurerm_resource_group.ffn-workshop.name
   virtual_network_name = azurerm_virtual_network.ffn-workshop.name
   address_prefixes     = ["10.0.0.0/24"]
-  security_group       = azurerm_network_security_group.ffn-workshop.name
+  network_security_group_ids = [azurerm_network_security_group.ffn-workshop.id]
 }
 
 resource "azurerm_network_interface" "ffn-workshop" {
@@ -85,12 +85,6 @@ resource "azurerm_network_interface" "ffn-workshop" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.ffn-workshop.id
   }
-}
-
-resource "random_password" "ffn-workshop" {
-  length           = 16
-  special          = true
-  override_special = "!@#"
 }
 
 resource "azurerm_linux_virtual_machine" "ffn-workshop" {
@@ -114,6 +108,12 @@ resource "azurerm_linux_virtual_machine" "ffn-workshop" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
+}
+
+resource "random_password" "ffn-workshop" {
+  length           = 16
+  special          = true
+  override_special = "!@#"
 }
 
 output "vm_password" {

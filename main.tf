@@ -2,6 +2,19 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+  required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "3.1.0"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = ">=2.0"
+    }
+  }
+}
+
 variable "prefix" {
   description = "Enter the prefix for the resource names"
   type        = string

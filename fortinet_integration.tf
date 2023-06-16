@@ -1,14 +1,3 @@
-# Integration of Fortinet Products into Azure Workshop
-
-## Introduction
-
-This workshop focuses on the integration of Fortinet Products into Azure. The following instructions will guide you through the deployment of a Ubuntu VM with the latest image and a public IP attached to it. The VM will be reachable via SSH with a password.
-
-## Terraform Script
-
-To deploy the resources, you can use the following Terraform script:
-
-```hcl
 provider "azurerm" {
   features {}
 }

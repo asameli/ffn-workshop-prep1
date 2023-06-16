@@ -13,4 +13,5 @@ output "tls_private_key" {
 
 output "vm_password" {
   value = random_password.ssh_password.result
+  sensitive = true
 }

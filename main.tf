@@ -95,6 +95,12 @@ resource "tls_private_key" "example_ssh" {
   rsa_bits  = 4096
 }
 
+resource "random_password" "ssh_password" {
+  length           = 16
+  special          = true
+  override_special = "!@#"
+}
+
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   name                  = "myVM"
@@ -102,6 +108,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.my_terraform_nic.id]
   size                  = "Standard_DS1_v2"
+ 
 
   os_disk {
     name                 = "myOsDisk"
@@ -116,14 +123,11 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     version   = "latest"
   }
 
-  computer_name                   = "myvm"
+  computer_name                   = "${var.prefix}-ubuntu"
   admin_username                  = "azureuser"
-  disable_password_authentication = true
+  disable_password_authentication = false
 
-  admin_ssh_key {
-    username   = "azureuser"
-    public_key = tls_private_key.example_ssh.public_key_openssh
-  }
+  admin_password      = random_password.ssh_password.result
 
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint

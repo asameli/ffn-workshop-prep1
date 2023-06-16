@@ -18,7 +18,7 @@ terraform {
 variable "prefix" {
   description = "Enter the prefix for the resource names"
   type        = string
-  default     = "FFN-Workshop"
+  default     = "AS-FFN-Workshop"
 }
 
 variable "resource_group_name" {
@@ -71,7 +71,11 @@ resource "azurerm_subnet" "ffn-workshop" {
   resource_group_name  = azurerm_resource_group.ffn-workshop.name
   virtual_network_name = azurerm_virtual_network.ffn-workshop.name
   address_prefixes     = ["10.0.0.0/24"]
-  network_security_group_ids = [azurerm_network_security_group.ffn-workshop.id]
+}
+
+resource "azurerm_subnet_network_security_group_association" "ffn-workshop" {
+  subnet_name                 = "${var.prefix}-subnet"
+  network_security_group_name = azurerm_network_security_group.ffn-workshop.name
 }
 
 resource "azurerm_network_interface" "ffn-workshop" {
